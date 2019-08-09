@@ -2,7 +2,7 @@
 stobot documentation
 ********************
 
-.. image:: https://api.travis-ci.org/constrict0r/stbot-docs.svg
+.. image:: https://api.travis-ci.org/constrict0r/stbot.svg
    :alt: travis
 
 .. image:: https://readthedocs.org/projects/stbot-docs/badge
@@ -14,7 +14,7 @@ Full documentation on `readthedocs
 <https://stobot.readthedocs.io/en/latest/>`_.
 
 Source code on `Github repository
-<https://github.com/vinicio/stobot>`_.
+<https://github.com/ETA-CARIN3/stobot>`_.
 
 
 Contents
@@ -56,21 +56,23 @@ Compatibility
 License
 *******
 
-GPL 3. See the LICENSE file for more details.
+Copyright. All rights reserved.
 
 
 Links
 *****
 
-`Github repository <https://github.com/vinicio/stobot>`_
+`Github repository <https://github.com/ETA-CARIN3/stobot>`_
 
-`Travis CI building <https://travis-ci.org/vinicio/stobot>`_
+`readthedocs <https://stobot.readthedocs.io/en/latest/>`_
+
+`Travis CI building <https://travis-ci.org/ETA-CARIN3/stobot>`_
 
 
 Authors
 *******
 
-.. image:: https://raw.githubusercontent.com/constrict0r/images/master/stbot-docs/author_2.png
+.. image:: https://raw.githubusercontent.com/ETA-CARIN3/stbot-docs/master/resources/img/author_2.png
    :alt: author_2
 
 .. image:: https://raw.githubusercontent.com/constrict0r/images/master/stbot-docs/author.png

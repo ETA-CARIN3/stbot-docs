@@ -4,8 +4,8 @@ import os
 import sys
 
 project = "stobot"
-copyright = "2019, vinicio"
-author = "vinicio"
+copyright = "2019, ETA-CARIN3"
+author = "ETA-CARIN3"
 version = "0.0.1"
 release = "0.0.1"
 
@@ -30,7 +30,7 @@ master_doc = "index"
 
 images_base = "https://github.com"
 
-images_url = images_base + "/cryptoinvestment11/stobot/master/resources/img/"
+images_url = images_base + "/ETA-CARIN3/stobot/master/resources/img/"
 
 global_substitutions = {
     "AUTHOR_IMAGE": ".. image:: " + images_url +

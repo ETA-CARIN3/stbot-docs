@@ -1,4 +1,4 @@
 License
 --------------------------------------------------------------
 
-GPL 3. See the LICENSE file for more details.
+Copyright. All rights reserved.
