@@ -62,9 +62,9 @@ Copyright. All rights reserved.
 Links
 *****
 
-`Github repository <https://github.com/ETA-CARIN3/stobot>`_
+`Github repository <https://github.com/ETA-CARIN3/stobot-docs>`_
 
-`readthedocs <https://stobot.readthedocs.io/en/latest/>`_
+`readthedocs <https://stobot-docs.readthedocs.io/en/latest/>`_
 
 `Travis CI building <https://travis-ci.org/ETA-CARIN3/stobot>`_
 
@@ -75,6 +75,6 @@ Authors
 .. image:: https://raw.githubusercontent.com/ETA-CARIN3/stbot-docs/master/resources/img/author_2.png
    :alt: author_2
 
-.. image:: https://raw.githubusercontent.com/constrict0r/images/master/stbot-docs/author.png
+.. image:: https://raw.githubusercontent.com/ETA-CARIN3/stbot-docs/master/resources/img/author.png
    :alt: author
 
