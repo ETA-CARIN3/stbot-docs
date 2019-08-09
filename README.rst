@@ -2,7 +2,7 @@
 stobot documentation
 ********************
 
-.. image:: https://api.travis-ci.org/ETA-CARIN3/stobot.svg
+.. image:: https://api.travis-ci.org/ETA-CARIN3/stobot-docs.svg
    :alt: travis
 
 .. image:: https://readthedocs.org/projects/stobot-docs/badge
