@@ -2,10 +2,10 @@
 stobot documentation
 ********************
 
-.. image:: https://api.travis-ci.org/constrict0r/stbot.svg
+.. image:: https://api.travis-ci.org/ETA-CARIN3/stobot.svg
    :alt: travis
 
-.. image:: https://readthedocs.org/projects/stbot-docs/badge
+.. image:: https://readthedocs.org/projects/stobot-docs/badge
    :alt: readthedocs
 
 Btc trading bot.
@@ -72,9 +72,8 @@ Links
 Authors
 *******
 
-.. image:: https://raw.githubusercontent.com/ETA-CARIN3/stbot-docs/master/resources/img/author_2.png
+.. image:: https://raw.githubusercontent.com/ETA-CARIN3/stobot-docs/master/resources/img/author_2.png
    :alt: author_2
 
-.. image:: https://raw.githubusercontent.com/ETA-CARIN3/stbot-docs/master/resources/img/author.png
+.. image:: https://raw.githubusercontent.com/ETA-CARIN3/stobot-docs/master/resources/img/author.png
    :alt: author
-
