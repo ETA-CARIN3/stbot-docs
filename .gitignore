@@ -1,9 +1,6 @@
 # Ansible.
 *.retry
 
-# Binaries.
-*.png
-
 # Buffers.
 *~
 
