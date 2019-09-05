@@ -3,15 +3,6 @@
 # @file docthis
 # @brief Generate documentation using sphinx.
 
-# Default values.
-# URL to an images repository for replacements, when this variable is empty
-# the URL https://raw.githubusercontent.com/username/images/master/project/
-# is used.
-IMAGES_URL=''
-
-# Wheter to apply stardard or developer configuration, default is standard.
-DOCTHIS_DEVEL=false
-
 # Path to the project for which to generate documentation, if not
 # especified, the current path will be used.
 PROJECT_PATH=$(pwd)
@@ -24,7 +15,7 @@ Sphinx-Substitution-Extensions
 sphinx_rtd_theme'
 
 # conf.py file contents.
-CONFIGURATION_CONTENTS='# Configuration file for the Sphinx documentation builder.
+CONFIGURATION_CONTENTS='# Configuration file for Sphinx documentation builder.
 
 import os
 import sys
@@ -57,14 +48,20 @@ master_doc = "index"
 images_url = "|IMAGES_URL_GENERATED_VALUE|"
 
 global_substitutions = {
-    "AUTHOR_IMAGE": ".. image:: " + images_url + "/author.png\\n   :alt: author",
+    "AUTHOR_IMAGE": ".. image:: " + images_url +
+    "/author.png\\n   :alt: author",
     "AUTHOR_SLOGAN": "The travelling vaudeville villain.",
-    "GITHUB_REPO_LINK":  "`Github repository <https://github.com/" + author + "/" + project + ">`_.",
-    "INGREDIENTS_IMAGE": ".. image:: " + images_url + "/ingredients.png\\n   :alt: ingredients",
-    "READTHEDOCS_IMAGE": ".. image:: https://readthedocs.org/projects/" + project + "/badge\\n   :alt: readthedocs",
-    "READTHEDOCS_LINK": "`readthedocs <https://" + project + ".readthedocs.io/en/latest/>`_.",
-    "TRAVIS_CI_IMAGE":  ".. image:: https://api.travis-ci.org/" + author + "/" + project + ".svg\\n   :alt: travis",
-    "TRAVIS_CI_LINK":  "`Travis CI building <https://travis-ci.org/" + author + "/" + project + ">`_.",
+    "GITHUB_REPO_LINK":  "`Github repository <https://github.com/"
+    + author + "/" + project + ">`_.",
+    "PROJECT": project,
+    "READTHEDOCS_IMAGE": ".. image:: https://readthedocs.org/projects/"
+    + project + "/badge\\n   :alt: readthedocs",
+    "READTHEDOCS_LINK": "`readthedocs <https://" + project +
+    ".readthedocs.io/en/latest/>`_.",
+    "TRAVIS_CI_IMAGE":  ".. image:: https://api.travis-ci.org/" + author +
+    "/" + project + ".svg\\n   :alt: travis",
+    "TRAVIS_CI_LINK":  "`Travis CI building <https://travis-ci.org/"
+    + author + "/" + project + ">`_.",
 }
 
 substitutions = [
@@ -84,8 +81,8 @@ python:
     - requirements: docs/requirements.txt"
 
 # index.rst file contents.
-INDEX_CONTENTS="|PROJECT_GENERATED_NAME| documentation
-==============================================================
+INDEX_CONTENTS="|PROJECT_GENERATED_NAME|
+==============================================================================
 
 |TRAVIS_CI_IMAGE|
 
@@ -98,57 +95,37 @@ Full documentation on |READTHEDOCS_LINK|.
 Source code on |GITHUB_REPO_LINK|.
 
 Contents
-========
+==============================================================================
 
 .. toctree::
-   :maxdepth: 2
 
-   |PROJECT_GENERATED_NAME|
+   description
+
+   usage
+
+   variables
+
+   requirements
+
+   compatibility
+
+   license
+
+   links
+
+   author
 
 "
 
-# myproject.rst file contents.
-MYPROJECT_CONTENTS=".. |PROJECT| replace:: |PROJECT_GENERATED_NAME|
+# description.rst file contents.
+DESCRIPTION_CONTENTS='Description
+------------------------------------------------------------------------------
 
-.. |DESCRIPTION| replace:: My project long description.
+Describe me.'
 
-|PROJECT_GENERATED_NAME|
---------------------------------------------------------------
-
-.. include:: description.inc
-
-.. include:: ingredients.inc
-
-.. include:: usage.inc
-
-.. include:: actions.inc
-
-.. include:: variables.inc
-
-.. include:: requirements.inc
-
-.. include:: compatibility.inc
-
-.. include:: license.inc
-
-.. include:: links.inc
-
-.. include:: author.inc"
-
-# description.inc file contents.
-DESCRIPTION_CONTENTS='Overview
-~~~~~~~~
-
-|DESCRIPTION|'
-
-# ingredients.inc file contents.
-INGREDIENTS_CONTENTS='**Ingredients**
-
-|INGREDIENTS_IMAGE|'
-
-# usage.inc file contents
+# usage.rst file contents
 USAGE_CONTENTS="Usage
---------------------------------------------------------------
+------------------------------------------------------------------------------
 
 Download the script, give it execution permissions and execute it:
 
@@ -158,25 +135,9 @@ Download the script, give it execution permissions and execute it:
  chmod +x |PROJECT|.sh
  ./|PROJECT|.sh -h"
 
-# actions.inc file contents
-ACTIONS_CONTENTS='Actions
---------------------------------------------------------------
-
-When executed this project performs the following actions:
-
-\- Description of action 1 executed.
-
-\- Description of action 2 executed.
-
-\- Description of action 3 executed:
-    
-\- Description of subaction 3.1 executed.
- 
-\- Description of subaction 3.2 executed.'
-
-# variables.inc file contents.
+# variables.rst file contents.
 VARIABLES_CONTENTS="Variables
---------------------------------------------------------------
+------------------------------------------------------------------------------
 
 The following variables are supported:
 
@@ -192,15 +153,15 @@ The following variables are supported:
 
   ./|PROJECT|.sh -p /home/username/myproject"
 
-# requirements.inc file contents.
+# requirements.rst file contents.
 REQUIREMENTS_CONTENTS='Requirements
---------------------------------------------------------------
+------------------------------------------------------------------------------
 
 \- Python 3.'
 
-# compatibility.inc file contents.
+# compatibility.rst file contents.
 COMPATIBILITY_CONTENTS='Compatibility
---------------------------------------------------------------
+------------------------------------------------------------------------------
 
 \- Debian buster.
 
@@ -210,51 +171,27 @@ COMPATIBILITY_CONTENTS='Compatibility
 
 \- Ubuntu xenial.'
 
-# license.inc file contents.
+# license.rst file contents.
 LICENSE_CONTENTS='License
---------------------------------------------------------------
+------------------------------------------------------------------------------
 
 MIT. See the LICENSE file for more details.'
 
-# links.inc file contents.
+# links.rst file contents.
 LINKS_CONTENTS='Links
---------------------------------------------------------------
+-------------------------------------------------------------------------------
 
 |GITHUB_REPO_LINK|
 
 |TRAVIS_CI_LINK|'
 
-# author.inc file contents.
+# author.rst file contents.
 AUTHOR_CONTENTS='Author
---------------------------------------------------------------
+------------------------------------------------------------------------------
 
 |AUTHOR_IMAGE|
 
 |AUTHOR_SLOGAN|'
-
-# @description Shows help message.
-#
-# @noargs
-#
-# @exitcode 0 If successful.
-# @exitcode 1 On failure.
-function help() {
-
-    echo 'Uses Sphinx to generate html and rst documentation.'
-    echo 'Parameters:'
-    echo '-h (help): Show this help message.'
-    echo '-i (images url): Url to use when replacing images, default is
-             http://raw.githubusercontent.com/username/images/master/project/.'
-    echo '-d (developer): Applies developer configuration for a new project,
-             see https://parts.readthedocs.io.'
-    echo '-p <file_path> (project path): Optional absolute file path to the
-             root directory of the project to generate documentation. If this
-             parameter is not espeficied, the current path will be used.'
-    echo 'Example:'
-    echo "./docthis.sh -p /home/username/my_project -d -i https://i.imgur.com/project/"
-    return 0
-
-}
 
 # @description Escape especial characters.
 #
@@ -310,16 +247,14 @@ function generate() {
     local project_path=$(pwd)
     [[ -d $1 ]] && project_path="$( cd "$1" ; pwd -P )"
 
-    local project=$(basename $project_path)
+    local author=$(get_author $project_path)
+
+    local project=$(get_project $project_path)
 
     local project_year=$(date +"%Y")
 
-    local author=$(whoami)
+    local images_url=$(get_images_url $project_path)
 
-    local images_url="https://raw.githubusercontent.com/$author/images/master/$project"
-    ! [[ -z $IMAGES_URL ]] && images_url="$IMAGES_URL"
-    images_url=$(escape_url "$images_url")
-    
     # Setup everything for new projects.
     if ! [[ -f $project_path/docs/source/conf.py ]]; then
 
@@ -339,155 +274,34 @@ function generate() {
             cp "$( cd "$(dirname "$0")" ; pwd -P )"/docthis.sh $project_path/docthis.sh
         fi
 
-        # If global variable DOCTHIS_DEVEL is true, apply developer configuration.
-        if ! [[ -z $DOCTHIS_DEVEL ]] && [[ $DOCTHIS_DEVEL == true ]]; then
+        # Create requirements.txt file.
+        if ! [[ -f $project_path/docs/requirements.txt ]];
+        then
+            printf "$REQUIREMENTS_PIP" > $project_path/docs/requirements.txt
+        fi
 
-            # Directory layout.
-            mkdir -p $project_path/example &>/dev/null
+        # Create conf.py file.
+        if ! [[ -f $project_path/docs/source/conf.py ]];
+        then
+            printf "$CONFIGURATION_CONTENTS" > $project_path/docs/source/conf.py
+        fi
 
-            # Create sample package layout.
-            wget https://raw.githubusercontent.com/constrict0r/parts/master/example/__init__.py \
-                -O $project_path/example/__init__.py
-            wget https://raw.githubusercontent.com/constrict0r/parts/master/example/amanita.py \
-                -O $project_path/example/amanita.py
-
-            # Create requirements.txt file.
-            wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/requirements.txt \
-                -O $project_path/docs/requirements.txt
-
-            # Create conf.py file.
-            wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/conf.py \
-                -O $project_path/docs/source/conf.py
-
-            # Create source files.
-            if ! [[ -f $project_path/docs/source/index.rst ]]; then
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/index.rst \
-                    -O $project_path/docs/source/index.rst
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/parts.rst \
-                    -O $project_path/docs/source/${project}.rst
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/description.inc \
-                    -O $project_path/docs/source/description.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/ingredients.inc \
-                    -O $project_path/docs/source/ingredients.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/usage.inc \
-                    -O $project_path/docs/source/usage.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/usage-script.inc \
-                    -O $project_path/docs/source/usage-script.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/usage-bats-tests.inc \
-                    -O $project_path/docs/source/usage-bats-tests.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/usage-role.inc \
-                    -O $project_path/docs/source/usage-role.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/usage-role-variables.inc \
-                    -O $project_path/docs/source/usage-role-variables.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/usage-role-dependency.inc \
-                    -O $project_path/docs/source/usage-role-dependency.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/usage-role-tasks.inc \
-                    -O $project_path/docs/source/usage-role-tasks.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/usage-playbook-tests.inc \
-                    -O $project_path/docs/source/usage-playbook-tests.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/usage-plugin.inc \
-                    -O $project_path/docs/source/usage-plugin.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/usage-plugin-tasks.inc \
-                    -O $project_path/docs/source/usage-plugin-tasks.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/usage-script-tests.inc \
-                    -O $project_path/docs/source/usage-script-tests.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/usage-package.inc \
-                    -O $project_path/docs/source/usage-package.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/usage-package-tests.inc \
-                    -O $project_path/docs/source/usage-package-tests.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/actions.inc \
-                    -O $project_path/docs/source/actions.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/parameters.inc \
-                    -O $project_path/docs/source/parameters.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/parameter-help.inc \
-                    -O $project_path/docs/source/parameter-help.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/parameter-path.inc \
-                    -O $project_path/docs/source/parameter-path.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/variables.inc \
-                    -O $project_path/docs/source/variables.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/variable-validate.inc \
-                    -O $project_path/docs/source/variable-validate.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/variable-items.inc \
-                    -O $project_path/docs/source/variable-items.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/requirements.inc \
-                    -O $project_path/docs/source/requirements.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/requirement-python.inc \
-                    -O $project_path/docs/source/requirement-python.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/requirement-ansible.inc \
-                    -O $project_path/docs/source/requirement-ansible.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/compatibility.inc \
-                    -O $project_path/docs/source/compatibility.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/license.inc \
-                    -O $project_path/docs/source/license.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/links.inc \
-                    -O $project_path/docs/source/links.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/uml.inc \
-                    -O $project_path/docs/source/uml.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/uml-deployment.inc \
-                    -O $project_path/docs/source/uml-deployment.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/author.inc \
-                    -O $project_path/docs/source/author.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/enjoy.inc \
-                    -O $project_path/docs/source/enjoy.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/api.rst \
-                    -O $project_path/docs/source/api.rst
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/scripts.inc \
-                    -O $project_path/docs/source/scripts.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/script-docthis.inc \
-                    -O $project_path/docs/source/script-docthis.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/packages.inc \
-                    -O $project_path/docs/source/packages.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/package-example.inc \
-                    -O $project_path/docs/source/package-example.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/module-amanita.inc \
-                    -O $project_path/docs/source/module-amanita.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/usage-docthis.inc \
-                    -O $project_path/docs/source/usage-docthis.inc
-                wget https://raw.githubusercontent.com/constrict0r/parts/master/docs/source/usage-testme.inc \
-                    -O $project_path/docs/source/usage-testme.inc
-
-                sed -i -E "s/constrict0r/$author/g" $project_path/docs/source/*.*
-                sed -i -E "s/parts/$project/g" $project_path/docs/source/*.*
-                sed -i -E "s/https\:\/\/raw\.githubusercontent\.com\/$author\/images\/master\/$project/$images_url/g" $project_path/docs/source/*.*
-
-            fi
-
-        # Apply standard configuration.
-        else
-
-            # Create requirements.txt file.
-            if ! [[ -f $project_path/docs/requirements.txt ]];
-            then
-                printf "$REQUIREMENTS_PIP" > $project_path/docs/requirements.txt
-            fi
-
-            # Create conf.py file.
-            if ! [[ -f $project_path/docs/source/conf.py ]];
-            then
-                printf "$CONFIGURATION_CONTENTS" > $project_path/docs/source/conf.py
-            fi
-
-            # Create source files.
-            if ! [[ -f $project_path/docs/source/index.rst ]]; then
-                printf "$INDEX_CONTENTS" > $project_path/docs/source/index.rst
-                printf "$MYPROJECT_CONTENTS" > $project_path/docs/source/${project}.rst
-                printf "$DESCRIPTION_CONTENTS" > $project_path/docs/source/description.inc
-                printf "$INGREDIENTS_CONTENTS" > $project_path/docs/source/ingredients.inc
-                printf "$USAGE_CONTENTS" > $project_path/docs/source/usage.inc
-                printf "$ACTIONS_CONTENTS" > $project_path/docs/source/actions.inc
-                printf "$VARIABLES_CONTENTS" > $project_path/docs/source/variables.inc
-                printf "$REQUIREMENTS_CONTENTS" > $project_path/docs/source/requirements.inc
-                printf "$COMPATIBILITY_CONTENTS" > $project_path/docs/source/compatibility.inc
-                printf "$LICENSE_CONTENTS" > $project_path/docs/source/license.inc
-                printf "$LINKS_CONTENTS" > $project_path/docs/source/links.inc
-                printf "$AUTHOR_CONTENTS" > $project_path/docs/source/author.inc
-                sed -i -E "s/\|AUTHOR_GENERATED_NAME\|/$author/g" $project_path/docs/source/*.*
-                sed -i -E "s/\|PROJECT_GENERATED_NAME\|/$project/g" $project_path/docs/source/*.*
-                sed -i -E "s/\|YEAR_GENERATED_VALUE\|/$project_year/g" $project_path/docs/source/*.*
-                sed -i -E "s/\|IMAGES_URL_GENERATED_VALUE\|/$images_url/g" $project_path/docs/source/*.*
-            fi
-
-        fi # Standard or devel?
+        # Create source files.
+        if ! [[ -f $project_path/docs/source/index.rst ]]; then
+            printf "$INDEX_CONTENTS" > $project_path/docs/source/index.rst
+            printf "$DESCRIPTION_CONTENTS" > $project_path/docs/source/description.rst
+            printf "$USAGE_CONTENTS" > $project_path/docs/source/usage.rst
+            printf "$VARIABLES_CONTENTS" > $project_path/docs/source/variables.rst
+            printf "$REQUIREMENTS_CONTENTS" > $project_path/docs/source/requirements.rst
+            printf "$COMPATIBILITY_CONTENTS" > $project_path/docs/source/compatibility.rst
+            printf "$LICENSE_CONTENTS" > $project_path/docs/source/license.rst
+            printf "$LINKS_CONTENTS" > $project_path/docs/source/links.rst
+            printf "$AUTHOR_CONTENTS" > $project_path/docs/source/author.rst
+            sed -i -E "s/\|AUTHOR_GENERATED_NAME\|/$author/g" $project_path/docs/source/*.*
+            sed -i -E "s/\|PROJECT_GENERATED_NAME\|/$project/g" $project_path/docs/source/*.*
+            sed -i -E "s/\|YEAR_GENERATED_VALUE\|/$project_year/g" $project_path/docs/source/*.*
+            sed -i -E "s/\|IMAGES_URL_GENERATED_VALUE\|/$(escape_url $images_url)/g" $project_path/docs/source/*.*
+        fi
 
         # Install requirements if not already installed.
         local sphinx_requirements=$(python3 -m pip list --format=columns)
@@ -519,8 +333,7 @@ function generate() {
 # This function assumes:
 #   - The project has a file structure as created by generate().
 #   - The index.rst file contains a blank new line at the end.
-#   - The names of each file on index.rst does not contains .rst.
-#   - The toc on the index.rst file contains the :maxdepth: directive.
+#   - The ndex.rst file contains the :toctree: directive.
 #
 # @arg $1 string Optional project path. Default to current path.
 #
@@ -532,6 +345,10 @@ function generate_rst() {
 
     local project_path=$(pwd)
     [[ -d $1 ]] && project_path="$( cd "$1" ; pwd -P )"
+
+    local project=$(get_project $project_path)
+
+    local author=$(get_author $project_path)
 
     # When a line readed from the index.rst file is a menu item,
     # this variable will be setted to true.
@@ -546,21 +363,21 @@ function generate_rst() {
 
     # Recreate the file to append content.
     if [[ -f $project_path/docs/build/rst/index.rst ]]; then
-       readthedocs_to_rst $project_path/docs/build/rst/index.rst $(basename $project_path)
+       readthedocs_to_rst $project_path/docs/build/rst/index.rst $project
        cat $project_path/docs/build/rst/index.rst > $project_path/README-single.rst
        printf '\n' >> $project_path/README-single.rst
     fi
 
     while read LINE
     do
-        # The directive :maxdepth: of the index.rst file
+        # The directive :toctree: of the index.rst file
         # activates the search for menu item lines within that file.
-        [[ $LINE == *':maxdepth:'* ]] && items_found=true && continue
+        [[ $LINE == *'toctree::'* ]] && items_found=true && continue
 
         if [[ $items_found == true ]] && ! [[ -z "$LINE"  ]]; then
 
             # Apply conversion from readthedocs to common rst.
-            readthedocs_to_rst $project_path/docs/build/rst/${LINE}.rst $(basename $project_path)
+            readthedocs_to_rst $project_path/docs/build/rst/${LINE}.rst $project
 
             if [[ -f $project_path/docs/build/rst/${LINE}.rst ]]; then
                 cat $project_path/docs/build/rst/${LINE}.rst >> $project_path/README-single.rst
@@ -574,7 +391,118 @@ function generate_rst() {
     return 0
 }
 
+# @description Get the author's name.
+#
+# @arg $1 string Optional project path. Default to current path.
+#
+# @exitcode 0 If successful.
+# @exitcode 1 On failure.
+#
+# @stdout echo author's name.
+function get_author() {
+
+    local project_path=$(pwd)
+    [[ -d $1 ]] && project_path="$( cd "$1" ; pwd -P )"
+
+    local author=$(get_variable 'author' $project_path)
+    if [ $? -eq 0 ]; then
+        ! [[ -z $author ]] && echo $author && return 0
+    fi
+
+    whoami && return 0
+
+}
+
+# @description Get the images repository url.
+#
+# This function assumes:
+#   - The project has a file structure as created by generate().
+#
+# @arg $1 string Optional project path. Default to current path.
+#
+# @exitcode 0 If successful.
+# @exitcode 1 On failure.
+#
+# @stdout echo author's name.
+function get_images_url() {
+
+    local project_path=$(pwd)
+    [[ -d $1 ]] && project_path="$( cd "$1" ; pwd -P )"
+
+    local author=$(get_author $project_path)
+    local project=$(get_project $project_path)
+
+    local img_url_base=$(get_variable 'img_url_base' $project_path)
+    if ! [[ -z $img_url_base ]]; then
+        local img_url_repo=$(get_variable 'img_url_repo' $project_path)
+        if ! [[ -z $img_url_repo ]]; then
+            echo ${img_url_base}${author}${img_url_repo}${project}
+            return 0
+        fi
+        echo $img_url_base && return 0
+    fi
+
+    echo "https://raw.githubusercontent.com/$author/images/master/$project"
+    return 0
+
+}
+
+# @description Get the project's name.
+#
+# @arg $1 string Optional project path. Default to current path.
+#
+# @exitcode 0 If successful.
+# @exitcode 1 On failure.
+#
+# @stdout echo project's name.
+function get_project() {
+
+    local project_path=$(pwd)
+    [[ -d $1 ]] && project_path="$( cd "$1" ; pwd -P )"
+
+    local project=$(get_variable 'project' $project_path)
+    if [ $? -eq 0 ]; then
+        ! [[ -z $project ]] && echo $project && return 0
+    fi
+
+    basename $project_path && return 0
+
+}
+
+# @description Get a variable from the configuration file.
+#
+# @arg $1 string Required variable name.
+# @arg $2 string Optional project path. Default to current path.
+#
+# @exitcode 0 If successful.
+# @exitcode 1 On failure.
+#
+# @stdout echo variable value.
+function get_variable() {
+
+    [[ -z $1 ]] || ! [[ -f $project_path/docs/source/conf.py ]] && return 1
+    local variable_name=$1    
+
+    local project_path=$(pwd)
+    [[ -d $2 ]] && project_path="$( cd "$2" ; pwd -P )"
+
+    local variable_value=$(cat $project_path/docs/source/conf.py | sed -n "s/^.*${variable_name}\s*\=\s*\s*\(\S*\)\s*.*$/\1/p")
+
+    # Remove quotes.
+    variable_value="${variable_value%\"}"
+    variable_value="${variable_value#\"}"
+    variable_value="${variable_value%\'}"
+    variable_value="${variable_value#\'}"
+    echo $variable_value
+    return 0
+}
+
 # @description Get bash parameters.
+#
+# Accepts:
+#
+#  - *h* (help).
+#  - *p* <path> (project_path).
 #
 # @arg '$@' string Bash arguments.
 #
@@ -583,17 +511,35 @@ function generate_rst() {
 function get_parameters() {
 
     # Obtain parameters.
-    while getopts 'h;i:d;p:' opt; do
+    while getopts 'h;p:' opt; do
         OPTARG=$(sanitize "$OPTARG")
         case "$opt" in
             h) help && exit 0;;
-            i) IMAGES_URL="${OPTARG}";;
-            d) DOCTHIS_DEVEL=true;;
             p) PROJECT_PATH="${OPTARG}";;
         esac
     done
 
     return 0
+}
+
+# @description Shows help message.
+#
+# @noargs
+#
+# @exitcode 0 If successful.
+# @exitcode 1 On failure.
+function help() {
+
+    echo 'Uses Sphinx to generate html and rst documentation.'
+    echo 'Parameters:'
+    echo '-h (help): Show this help message.'
+    echo '-p <file_path> (project path): Optional absolute file path to the
+             root directory of the project to generate documentation. If this
+             parameter is not espeficied, the current path will be used.'
+    echo 'Example:'
+    echo "./docthis.sh -p /home/username/my_project"
+    return 0
+
 }
 
 # @description Generate documentation using sphinx.
@@ -615,14 +561,13 @@ function main() {
 #
 # This function assumes:
 #
-#  - The author is the current user running the script.
 #  - A travis-ci enviroment exists for the current component.
 #  - An images repository exists the current user/project.
 #
 # See `this link <https://github.com/constrict0r/images>`_ for an example images repository.
 #
 # @arg $1 string Path to file where to apply replacements.
-# @arg $2 string Optional project name to use in replacements.
+# @arg $2 string Optional project path. Default to current path.
 #
 # @exitcode 0 If successful.
 # @exitcode 1 On failure.
@@ -632,19 +577,15 @@ function readthedocs_to_rst() {
 
     ! [[ -f $1 ]] && return 1
 
-    author=$(whoami)
+    local project_path=$(pwd)
+    [[ -d $2 ]] && project_path="$( cd "$2" ; pwd -P )"
 
-    # If no project name was passed, try to figure out the name.
-    local project=''
-    if [[ -z $2 ]]; then
-        project=$(basename $(pwd))
-    else
-        project="$2"
-    fi
+    local author=$(get_author $project_path)
 
-    local images_url="https://raw.githubusercontent.com/$author/images/master/$project"
-    ! [[ -z $IMAGES_URL ]] && images_url="$IMAGES_URL"
-    images_url=$(escape_url "$images_url")
+    local images_url=$(get_images_url $project_path)
+    images_url=$(escape_url $images_url)
+
+    local project=$(get_project $project_path)
 
     # Convert all `<text.rst>`_ references to `<#text>`.
     sed -i -E "s/\<([[:alpha:]]*[[:punct:]]*)+\.rst\>//g" $1
